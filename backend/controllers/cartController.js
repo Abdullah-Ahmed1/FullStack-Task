@@ -32,7 +32,7 @@ module.exports = {
                 })
                 await Cart.updateOne(
                     {_id :createdCart._id},
-                    { $push: { 'items': req.params.productId } },
+                    { $push: { 'items': req.params.productId }},
                     {upsert: true}
                 )
                 return  res.status(200).send({
@@ -43,7 +43,10 @@ module.exports = {
 
             await Cart.updateOne(
                 {_id :createdCart._id},
-                { $push: { 'items': req.params.productId } },
+                { $push: { 'products': {
+                    item : req.params.productId,
+                    quantity : req.body.quantity
+                } } },
                 {upsert: true}
             )
             return  res.status(200).send({
@@ -60,9 +63,37 @@ module.exports = {
         
     },
 
-    removeProductToCart : (req,res)=>{
+    removeProductToCart : async(req,res)=>{
+        try{
+            const cart  = await Cart.find({})
+            if(!cart){
+                return res.send({
+                    message :"cart is already empty"
+                })
+            }
+            if(cart.items.length==0){
+                return res.send({
+                    message :"cart is already empty"
+                })
+            }
 
-        res.send("remove product to cart reached")
+            await Cart.updateOne(
+                {_id :createdCart._id},
+                { $pull: { 'items': {item: req.params.productId} } },
+                {upsert: true}
+            )
+            return  res.status(200).send({
+                message:"product removed from cart"
+            })
+
+
+        }catch(err){
+            console.log(err)
+            return res.status(400).send({
+                message :"something went wrong"
+            })
+        }
+        
     },
 
     updateProductInCart : (req,res)=>{

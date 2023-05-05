@@ -11,6 +11,9 @@ module.exports = {
             if(!cart)return res.send({
                 msg: "cart is empty"               
             })
+            if(cart.length==0)return res.send({
+                msg: "cart is empty"               
+            })
 
             return res.send(({
                 cart

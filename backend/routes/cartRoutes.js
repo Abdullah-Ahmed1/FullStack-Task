@@ -7,3 +7,4 @@ router.route('/addProductToCart').get(cartController.viewCart)
 router.route('/removeProductToCart').get(cartController.removeProductToCart)
 router.route('/updateProductInCart').get(cartController.updateProductInCart)
 
+module.exports = router

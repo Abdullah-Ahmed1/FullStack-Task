@@ -1,7 +1,15 @@
+import CartTable from "../components/cartTable"
+import ResponsiveAppBar from "../components/navbar"
+import Button from '@mui/material/Button';
+
 const Cart = ()=>{
     return(
         <div>
-            cart page
+            <ResponsiveAppBar/>
+            <h1>Cart</h1>
+            
+            <CartTable/>
+
         </div>
     )
 }

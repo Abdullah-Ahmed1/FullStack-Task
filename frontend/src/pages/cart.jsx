@@ -1,8 +1,8 @@
-const cart = ()=>{
+const Cart = ()=>{
     return(
         <div>
             cart page
         </div>
     )
 }
-export default cart
+export default Cart

@@ -1,8 +1,8 @@
-const store = ()=>{
+const Store = ()=>{
     return(
         <div>
             store page
         </div>
     )
 }
-export default store
+export default Store

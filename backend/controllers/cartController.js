@@ -105,9 +105,35 @@ module.exports = {
         
     },
 
-    updateProductInCart : (req,res)=>{
+    updateProductInCart : async(req,res)=>{
 
-        res.send("update product in cart reached")
+        try{
+            const cart  = await Cart.findOne({})
+            if(!cart){
+                return res.send({
+                    message :"cart is empty"
+                })
+            }
+            if(cart.products.length==0){
+                return res.send({
+                    message :"cart is empty"
+                })
+            }
+            await Cart.updateOne(
+                {_id :cart._id,"products._id":req.params.id},
+                { $set: {"products.$.quantity": req.body.quantity} },
+                {upsert: true}
+            )
+
+            return res.status(200).send({
+                message :"quantity updated successfully"
+            })
+
+        }catch(err){
+            return res.status(400).send({
+                message :"something went wrong"
+            })
+        }
     },
 
 

@@ -23,6 +23,17 @@ function App() {
     })
   }
 
+  const refreshProducts = ()=>{
+    axios.get(`http://localhost:5000/cart/viewCart`)
+    .then((response)=>{
+      console.log("-->",response.data.cart[0].products)
+      setCart(response.data.cart[0].products)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
 useEffect(()=>{
   axios.get(`http://localhost:5000/cart/viewCart`)
   .then((response)=>{
@@ -49,7 +60,7 @@ useEffect(()=>{
     <>
     <Routes>
       <Route path='/'  element={< Store  products = {products}  addToCart = {addToCart} />}  />
-      <Route path='/cart'  element={< Cart  cart = {cart} />}  />
+      <Route path='/cart'  element={< Cart  cart = {cart}  refreshProducts = {refreshProducts} />}  />
     </Routes>
     </>
   )

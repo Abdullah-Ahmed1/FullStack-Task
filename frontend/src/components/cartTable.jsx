@@ -6,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import axios from 'axios'
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -19,8 +21,20 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function CartTable({cart}) {
+export default function CartTable({cart,refreshProducts}) {
     console.log("!!!!!!!!!!!!!!!!!!!!!",cart)
+
+    const removeItemFromCart = (id)=>{
+        axios.patch(`http://localhost:5000/cart/removeProductFromCart/${id}`)
+        .then((res)=>{
+          console.log(res)
+          refreshProducts()
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+      }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -29,6 +43,7 @@ export default function CartTable({cart}) {
             <TableCell>Product Name</TableCell>
             <TableCell align="right">Price</TableCell>
             <TableCell align="right">Quantity</TableCell>
+            <TableCell align="right">Action</TableCell>
            
           </TableRow>
         </TableHead>
@@ -43,6 +58,9 @@ export default function CartTable({cart}) {
               </TableCell>
               <TableCell align="right">{item.item.price}</TableCell>
               <TableCell align="right">{item.quantity}</TableCell>
+              <TableCell align="right">
+                <Button variant='contained' onClick={()=>removeItemFromCart(item._id)} >Remove</Button>
+              </TableCell>
               
             </TableRow>
           ))}

@@ -16,3 +16,4 @@ try{
 module.exports = mongoose.connect;
 require("../models/product.model");
 require("../models/cart.model");
+require("../models/sale.model");

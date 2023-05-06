@@ -7,7 +7,7 @@ module.exports = {
     viewCart:async (req,res)=>{
         console.log("view cart reached")
         try{
-            const cart = await Cart.find({})
+            const cart = await Cart.find({}).populate('products.item')
             if(!cart)return res.send({
                 msg: "cart is empty"               
             })

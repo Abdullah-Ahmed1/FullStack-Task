@@ -22,5 +22,17 @@ module.exports = {
                 message :"something went wrong"
             })
         }
+    },
+    ViewAllProducts:async(req,res)=>{
+        try{
+            const products = await Product.find({}) 
+            return res.status(200).send({
+                products
+            })
+        }catch(err){
+            return res.status(400).send({
+                message :"something went wrong"
+            })
+        }
     }
 }

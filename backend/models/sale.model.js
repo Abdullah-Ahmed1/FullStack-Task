@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var cartSchema = new mongoose.Schema({
+var saleSchema = new mongoose.Schema({
   products: {
     type: [
       {
@@ -14,5 +14,9 @@ var cartSchema = new mongoose.Schema({
       },
     ],
   },
+  createAt :{
+    type:Date,
+    default : new Date()
+  }
 });
-mongoose.model("Cart", cartSchema);
+mongoose.model("Sale", saleSchema);

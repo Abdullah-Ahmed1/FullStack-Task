@@ -2,6 +2,6 @@ const express = require('express')
 const productController = require('../controllers/productController')
 const router = express.Router()
 
-router.route('/create').get(productController.createProduct)
+router.route('/create').post(productController.createProduct)
 
 module.exports = router

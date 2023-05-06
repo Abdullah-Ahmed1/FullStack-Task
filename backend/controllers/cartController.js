@@ -28,14 +28,19 @@ module.exports = {
 
     addProductToCart : async(req,res)=>{
         try{
-            const cart  = await Cart.find({})
+            const cart  = await Cart.findOne({})
+            console.log("-->>>",cart)
             if(!cart){
                 const createdCart= await Cart.create({
-                    items :[]
+                    products :[]
                 })
+                console.log("===>",createdCart)
                 await Cart.updateOne(
                     {_id :createdCart._id},
-                    { $push: { 'items': req.params.productId }},
+                    { $push: { 'products': {
+                        item : req.params.productId,
+                        quantity : req.body.quantity
+                    } } },
                     {upsert: true}
                 )
                 return  res.status(200).send({
@@ -45,7 +50,7 @@ module.exports = {
             }
 
             await Cart.updateOne(
-                {_id :createdCart._id},
+                {_id :cart._id},
                 { $push: { 'products': {
                     item : req.params.productId,
                     quantity : req.body.quantity
@@ -66,23 +71,24 @@ module.exports = {
         
     },
 
-    removeProductToCart : async(req,res)=>{
+    removeProductFromCart : async(req,res)=>{
         try{
-            const cart  = await Cart.find({})
+            const cart  = await Cart.findOne({})
+            console.log("cart is :",cart)
             if(!cart){
                 return res.send({
                     message :"cart is already empty"
                 })
             }
-            if(cart.items.length==0){
+            if(cart.products.length==0){
                 return res.send({
                     message :"cart is already empty"
                 })
             }
 
             await Cart.updateOne(
-                {_id :createdCart._id},
-                { $pull: { 'items': {item: req.params.productId} } },
+                {_id :cart._id},
+                { $pull: { 'products': {_id: req.params.productId} } },
                 {upsert: true}
             )
             return  res.status(200).send({

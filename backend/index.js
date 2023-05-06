@@ -2,6 +2,7 @@ const express= require("express")
 require("./connection/connection");
 const app = express()
 
+app.use(express.json())
 
 const cartRouter = require('./routes/cartRoutes')
 app.use('/cart',cartRouter)

@@ -6,7 +6,7 @@ module.exports = {
     createProduct :async (req,res)=>{
         try{
             const product = await Product.findOne({
-                name :req.body.name
+                "name" :req.body.name
             })
             if(product) return res.send({
                 message:"product with given name already exist"
@@ -17,6 +17,7 @@ module.exports = {
                 message:" product created successfully"
             })
         }catch(err){
+            console.log(err)
             return res.status(400).send({
                 message :"something went wrong"
             })

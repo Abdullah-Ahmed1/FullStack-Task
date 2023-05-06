@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import Item from "../components/item";
 
-const Store = ({ products,addToCart }) => {
+const Store = ({ products,addToCart,cart }) => {
   return (
     <Box>
-      <ResponsiveAppBar />
+      <ResponsiveAppBar cart = {cart}/>
       <Grid2 container justifyContent={"center"} alignItems={"center"}>
         <Grid2
           container

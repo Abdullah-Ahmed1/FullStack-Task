@@ -21,14 +21,14 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function CartTable({cart,refreshProducts}) {
+export default function CartTable({cart,refreshCart}) {
     console.log("!!!!!!!!!!!!!!!!!!!!!",cart)
 
     const removeItemFromCart = (id)=>{
         axios.patch(`http://localhost:5000/cart/removeProductFromCart/${id}`)
         .then((res)=>{
           console.log(res)
-          refreshProducts()
+          refreshCart()
         })
         .catch((err)=>{
           console.log(err)

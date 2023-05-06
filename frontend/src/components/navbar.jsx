@@ -14,11 +14,13 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
+import Badge from '@mui/material/Badge';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({cart}) {
+    console.log("****   ",cart)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate()
@@ -130,10 +132,13 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="View Cart">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                
-                <ShoppingCartIcon onClick = {()=>navigate('/cart')}/>
+            <Badge badgeContent={`${cart.length}`} color='secondary' > 
+              <IconButton onClick = {()=>navigate('/cart')} sx={{ p: 0 }}>
+               
+                <ShoppingCartIcon />
+               
               </IconButton>
+              </Badge>
             </Tooltip>
           
           </Box>

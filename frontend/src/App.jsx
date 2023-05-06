@@ -17,13 +17,14 @@ function App() {
     })
     .then((response)=>{
       console.log(response)
+      refreshCart()
     })
     .catch((err)=>{
       console.log(err)
     })
   }
 
-  const refreshProducts = ()=>{
+  const refreshCart = ()=>{
     axios.get(`http://localhost:5000/cart/viewCart`)
     .then((response)=>{
       console.log("-->",response.data.cart[0].products)
@@ -59,8 +60,8 @@ useEffect(()=>{
   return (
     <>
     <Routes>
-      <Route path='/'  element={< Store  products = {products}  addToCart = {addToCart} />}  />
-      <Route path='/cart'  element={< Cart  cart = {cart}  refreshProducts = {refreshProducts} />}  />
+      <Route path='/'  element={< Store  products = {products} cart = {cart} addToCart = {addToCart} />}  />
+      <Route path='/cart'  element={< Cart  cart = {cart}  refreshCarts = {refreshCart} />}  />
     </Routes>
     </>
   )

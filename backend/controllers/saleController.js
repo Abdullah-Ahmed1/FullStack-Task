@@ -21,7 +21,10 @@ module.exports={
                 createAt:new Date()
             })
 
-            await Cart.deleteMany({})
+            await Cart.updateOne(
+                {_id : cart._id},
+                { $set : {'products': [] }} , {multi:true}
+            )
             
 
         }catch(err){

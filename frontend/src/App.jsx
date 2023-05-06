@@ -7,11 +7,14 @@ import axios from 'axios'
 
 function App() {
   const [products,setProducts] = useState([])
+  const [cart,setCart]  = useState([])
 
   const addToCart = (id)=>{
     console.log("id is ---->",id)
 
-    axios.post(`http://localhost:5000/cart/addProductToCart/${id}`)
+    axios.post(`http://localhost:5000/cart/addProductToCart/${id}`,{
+      quantity : 1
+    })
     .then((response)=>{
       console.log(response)
     })
@@ -20,7 +23,16 @@ function App() {
     })
   }
 
-
+useEffect(()=>{
+  axios.get(`http://localhost:5000/cart/viewCart`)
+  .then((response)=>{
+    console.log("-->",response.data.cart[0].products)
+    setCart(response.data.cart[0].products)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+},[])
 
 useEffect(()=>{
   axios.get('http://localhost:5000/product/view')
@@ -37,7 +49,7 @@ useEffect(()=>{
     <>
     <Routes>
       <Route path='/'  element={< Store  products = {products}  addToCart = {addToCart} />}  />
-      <Route path='/cart'  element={< Cart/>}  />
+      <Route path='/cart'  element={< Cart  cart = {cart} />}  />
     </Routes>
     </>
   )

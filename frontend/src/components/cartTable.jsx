@@ -19,7 +19,8 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function CartTable() {
+export default function CartTable({cart}) {
+    console.log("!!!!!!!!!!!!!!!!!!!!!",cart)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -32,16 +33,16 @@ export default function CartTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {cart.map((item,index) => (
             <TableRow
-              key={row.name}
+              key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {item.item.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{item.item.price}</TableCell>
+              <TableCell align="right">{item.quantity}</TableCell>
               
             </TableRow>
           ))}

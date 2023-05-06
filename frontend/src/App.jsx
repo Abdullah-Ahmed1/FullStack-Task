@@ -5,8 +5,7 @@ import Store from './pages/store'
 import Cart from './pages/cart'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
     <>
     <Routes>

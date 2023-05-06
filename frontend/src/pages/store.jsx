@@ -1,8 +1,14 @@
+import ResponsiveAppBar from "../components/navbar"
+import Box from '@mui/material/Box';
+import Grid2 from '@mui/material/Unstable_Grid2';
+
 const Store = ()=>{
     return(
-        <div>
+        <Box>
+
+            <ResponsiveAppBar/>
             store page
-        </div>
+        </Box>
     )
 }
 export default Store

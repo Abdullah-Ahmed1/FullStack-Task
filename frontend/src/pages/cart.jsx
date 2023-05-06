@@ -9,8 +9,9 @@ const Cart = ()=>{
             <h1>Cart</h1>
             
             <CartTable/>
-
+            <Button variant="contained">Checkout</Button>
         </div>
+       
     )
 }
 export default Cart
